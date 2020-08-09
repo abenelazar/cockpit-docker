@@ -1,4 +1,4 @@
-FROM php:7-apache
+FROM php:7-apache@sha256:2371c78e997113bbc5484eaef6cd2011238a89ac619f313d746f0000d52d18b2
 
 ARG COCKPIT_VERSION="master"
 
@@ -11,9 +11,10 @@ RUN apt-get update \
     sqlite3 libsqlite3-dev \
     libssl-dev \
     libzip-dev \
-    && pecl install mongodb \
-    && pecl install redis \
-    && docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ \
+
+RUN pecl install mongodb
+RUN pecl install redis
+RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ \
     && docker-php-ext-install -j$(nproc) iconv gd pdo zip opcache pdo_sqlite \
     && a2enmod rewrite expires
 

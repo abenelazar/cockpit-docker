@@ -7,6 +7,7 @@ Start a container with:
 
 # Build  
 docker build -t agentejo/cockpit:latest . --no-cache
+docker build -t agentejo/cockpit:armv7 -f Dockerfile-armv7 . --no-cache
 
 # Update Repo
 docker push agentejo/cockpit
